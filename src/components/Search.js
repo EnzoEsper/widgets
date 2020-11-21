@@ -21,7 +21,9 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    searchTerm();
+    if (term) {
+      searchTerm();
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {

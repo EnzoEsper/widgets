@@ -21,8 +21,21 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    if (term) {
+    if (term && !results.length) {
+      // first time that the component is rendered, so the timeout is not applied
       searchTerm();
+    } else {
+      // delay between the term changes for execute the search
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          searchTerm();
+        }
+      }, 700);
+
+      // if the time between changes of the term is under 0.7 secs the last timer is cleared and another new one is created
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   }, [term]);
 

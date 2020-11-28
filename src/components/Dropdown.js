@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Dropdown = ({ options, selected, onSelectedChange }) => {
-  const renderedOptions = options.map((option) => {
+  
+  // state for manage the open/close of the dropdown
+  const [open, setOpen] = useState(false);
 
+  const renderedOptions = options.map((option) => {
     // filtering the option list for not to show an item that is selected twice in the list
     if (option.value === selected.value) {
       return null;
@@ -19,11 +22,11 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
     <div className="ui form">
       <div className="field">
         <label className="label">Select a Color</label>
-        <div className="ui selection dropdown visible active">
+        <div onClick={() => setOpen(!open)} className={`ui selection dropdown ${open ? 'visible active' : ''}`}>
           {/* i tag is not really for an icon, its just a convention that semantic ui makes use of for show an icon inside an i tag */}
           <i className="dropdown icon"></i>
           <div className="text">{selected.label}</div>
-          <div className="menu visible transition">
+          <div className={`menu ${open ? 'visible transition' : ''}`}>
             {renderedOptions}
           </div>
         </div>

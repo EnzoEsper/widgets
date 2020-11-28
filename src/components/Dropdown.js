@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Dropdown = ({ options }) => {
+const Dropdown = ({ options, selected, onSelectedChange }) => {
   const renderedOptions = options.map((option) => {
     return (
-      <div key={option.value} className="item">
+      <div key={option.value} className="item" onClick={() => onSelectedChange(option)}>
         {option.label}
       </div>
-    )
+    );
   });
   
   return(
@@ -16,7 +16,7 @@ const Dropdown = ({ options }) => {
         <div className="ui selection dropdown visible active">
           {/* i tag is not really for an icon, its just a convention that semantic ui makes use of for show an icon inside an i tag */}
           <i className="dropdown icon"></i>
-          <div className="text">Select Color</div>
+          <div className="text">{selected.label}</div>
           <div className="menu visible transition">
             {renderedOptions}
           </div>

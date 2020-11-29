@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ label, options, selected, onSelectedChange }) => {
   
   // state for manage the open/close of the dropdown
   const [open, setOpen] = useState(false);
@@ -49,7 +49,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
   return(
     <div ref={ref} className="ui form">
       <div className="field">
-        <label className="label">Select a Color</label>
+        <label className="label">{label}</label>
         <div onClick={() => setOpen(!open)} className={`ui selection dropdown ${open ? 'visible active' : ''}`}>
           {/* i tag is not really for an icon, its just a convention that semantic ui makes use of for show an icon inside an i tag */}
           <i className="dropdown icon"></i>

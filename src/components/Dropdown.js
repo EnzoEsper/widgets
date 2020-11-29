@@ -9,18 +9,30 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
 
   // runs one time, only when the component renders on the screen (argument with [])
   useEffect(() => {
-    document.body.addEventListener('click', (event) => {
-      
+
+    const onBodyClick = (event) => {
+
+      console.log(`BODY CLICKED!`);
       /* THIS LOGIC ALLOWS TO CLOSE THE DROPDOWN WHEN THE USER CLICKS OUTSIDE THE DROPDOWN */
-      // if the element that was clicked is inside the dropdown most partent element, then 
-      // return early
-      if (ref.current.contains(event.target)) {
+      // if the element that was clicked is inside the dropdown most partent element, then return early
+      // The null propagation operator allows to avoid the error when the toggle botton is pressed and
+      // ref.current becomes null because the dropdown was deleted 
+      if (ref.current?.contains(event.target)) {
         return;
       };
       // otherwise (if the element that was clicked is outside the dropdown most parent element), then
       // te dropdown is closed
       setOpen(false);
-    });
+    }
+
+    document.body.addEventListener('click', onBodyClick);
+
+    // this will we invoked right before the next time that this function (useEffect) is called AND when we stop showing the 
+    // dropdown component to the screen
+    return () => {
+      console.log('Clean up called!');
+      document.body.removeEventListener('click', onBodyClick);
+    };
   }, []);
 
 

@@ -4,8 +4,13 @@ const Link = ({ className, href, children }) => {
   
   const onClick = (event) => {
     event.preventDefault();
-
+    
+    // function to change the url of the page
     window.history.pushState({}, '', href);
+
+    // code to tell to the components (route components) that the url has changed
+    const navEvent = new PopStateEvent('popstate');
+    window.dispatchEvent(navEvent);
   };
 
   return (

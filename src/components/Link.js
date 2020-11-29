@@ -3,6 +3,10 @@ import React from "react";
 const Link = ({ className, href, children }) => {
   
   const onClick = (event) => {
+    if (event.metaKey || event.ctrlKey) {
+      return;
+    }
+
     event.preventDefault();
     
     // function to change the url of the page
